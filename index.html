@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GOATChat - Focus first. Catch up later.</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="dashboard">
+
+  <!-- Left Sidebar -->
+  <aside class="sidebar left-sidebar">
+    <div class="branding">
+      <div class="logo"><span class="logo-icon">🐐</span><span class="logo-text">GOATChat</span></div>
+      <p class="tagline">Focus first. Catch up later.</p>
+    </div>
+    <nav class="navigation">
+      <a href="#" class="nav-item active"><span class="nav-icon">💬</span><span class="nav-text">Group Chat</span></a>
+      <a href="#" class="nav-item"><span class="nav-icon">👥</span><span class="nav-text">Online Users</span></a>
+      <a href="#" class="nav-item"><span class="nav-icon">⚙️</span><span class="nav-text">Settings</span></a>
+      <a href="#" class="nav-item"><span class="nav-icon">ℹ️</span><span class="nav-text">About</span></a>
+    </nav>
+    <div class="user-profile">
+      <div class="profile-avatar">
+        <img src="https://i.pravatar.cc/150?img=68" alt="You">
+        <span class="status-indicator online"></span>
+      </div>
+      <div class="profile-info"><span class="profile-name">You</span><span class="profile-status">Online</span></div>
+    </div>
+  </aside>
+
+  <!-- Center Panel -->
+  <main class="center-panel">
+
+    <!-- Banner (shown when typing) -->
+    <div class="chat-banner hidden" id="chatBanner">
+      <span>⏸️</span>
+      <span>You are typing. Incoming messages are paused.</span>
+    </div>
+
+    <!-- Chat Feed: header + messages (can blur) -->
+    <div class="chat-feed" id="chatFeed">
+      <div class="chat-header">
+        <h2>Group Chat</h2>
+        <span class="active-users-count">👤 8 active</span>
+      </div>
+      <div class="messages-container" id="messagesContainer">
+        <div class="message" data-sender="Alice">
+          <div class="message-avatar"><img src="https://i.pravatar.cc/150?img=32" alt="Alice"></div>
+          <div class="message-content">
+            <div class="message-header"><span class="sender-name">Alice</span><span class="message-time">10:30 AM</span></div>
+            <div class="message-text">Hey everyone! How's the hackathon going? 🚀</div>
+          </div>
+        </div>
+        <div class="message" data-sender="Bob">
+          <div class="message-avatar"><img src="https://i.pravatar.cc/150?img=11" alt="Bob"></div>
+          <div class="message-content">
+            <div class="message-header"><span class="sender-name">Bob</span><span class="message-time">10:31 AM</span></div>
+            <div class="message-text">Going great! Just finished the backend setup <span class="mention">@You</span>, you should check it out!</div>
+          </div>
+        </div>
+        <div class="message" data-sender="Charlie">
+          <div class="message-avatar"><img src="https://i.pravatar.cc/150?img=5" alt="Charlie"></div>
+          <div class="message-content">
+            <div class="message-header"><span class="sender-name">Charlie</span><span class="message-time">10:32 AM</span></div>
+            <div class="message-text">The UI looks amazing! Love the blue and yellow theme 💙💛</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Focus Overlay: covers only the messages, NOT the input -->
+      <div class="focus-overlay hidden" id="focusOverlay">
+        <div class="focus-circle-container">
+          <!-- Circle with GOATChat logo in center, users around it -->
+          <div class="focus-circle">
+            <div class="circle-glow"></div>
+            <div class="circle-inner"></div>
+            <div class="focus-logo">
+              <span class="focus-logo-icon">🐐</span>
+              <span class="focus-logo-text">GOATChat</span>
+            </div>
+          </div>
+          <div class="users-around-circle" id="usersAroundCircle"></div>
+          <div class="focus-info">
+            <h3 class="focus-title">You're typing...</h3>
+            <p class="focus-subtitle">Conversations are waiting for you</p>
+            <div class="typing-indicators" id="typingIndicators"></div>
+          </div>
+        </div>
+        <div class="delayed-reveal-container hidden" id="delayedReveal">
+          <div class="countdown-circle">
+            <span class="countdown-number" id="countdownNumber">5</span>
+            <div class="countdown-ring"></div>
+          </div>
+          <p class="countdown-text">Releasing messages...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input bar: ALWAYS visible at bottom, outside blur zone -->
+    <div class="chat-input-area">
+      <input type="text" id="messageInput" placeholder="Type a message..." autocomplete="off">
+      <button class="send-btn" id="sendBtn">📤</button>
+    </div>
+
+  </main>
+
+  <!-- Right Sidebar -->
+  <aside class="sidebar right-sidebar">
+    <div class="panel-section">
+      <h3 class="panel-title">Online Users</h3>
+      <div class="users-list" id="usersList"></div>
+    </div>
+    <div class="panel-section">
+      <h3 class="panel-title">Notifications</h3>
+      <div class="notification-panel">
+        <div class="notification-count">
+          <span class="count-badge" id="notificationCount">0</span>
+          <span class="count-text">new notifications</span>
+        </div>
+      </div>
+    </div>
+    <div class="panel-section">
+      <h3 class="panel-title">Mentions</h3>
+      <div class="mentions-panel"><div id="mentionsSummary"><p style="color:var(--tm);font-size:13px">No mentions</p></div></div>
+    </div>
+    <div class="panel-section">
+      <h3 class="panel-title">Message Summary</h3>
+      <div class="message-summary-panel"><div id="summaryContent"><p style="color:var(--tm);font-size:13px">No messages yet</p></div></div>
+    </div>
+  </aside>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
