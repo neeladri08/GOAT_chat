@@ -148,7 +148,7 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
   left: 0;
   right: 0;
   /* stop above the input bar — input bar is ~80px + 36px margin = ~116px from bottom */
-  bottom: 116px;
+  bottom: 0;
   background: rgba(15,23,42,.97);
   display: flex;
   align-items: center;
@@ -241,6 +241,82 @@ body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background:
 @keyframes dot { 0%,100% { opacity: .3; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.2); } }
 @keyframes countPulse { 0%,100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-50%,-50%) scale(1.1); } }
 
+/* Hide mobile topbar on desktop */
+.mobile-topbar { display: none; }
+
 /* ===== Responsive ===== */
-@media (max-width: 1200px) { .dashboard { grid-template-columns: 240px 1fr 280px; } }
-@media (max-width: 900px) { .dashboard { grid-template-columns: 200px 1fr; } .right-sidebar { display: none; } }
+@media (max-width: 1200px) {
+  .dashboard { grid-template-columns: 240px 1fr 280px; }
+}
+
+@media (max-width: 900px) {
+  .dashboard { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; height: 100dvh; }
+  .left-sidebar { display: none; }
+  .right-sidebar { display: none; }
+  .center-panel { height: 100dvh; }
+}
+
+/* ===== Mobile bottom nav ===== */
+@media (max-width: 900px) {
+  /* Show a slim top bar instead of left sidebar */
+  .mobile-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+  .mobile-topbar .logo { margin: 0; }
+  .mobile-topbar .logo-text { font-size: 20px; }
+  .mobile-topbar .logo-icon { font-size: 22px; }
+  .mobile-topbar .active-badge {
+    font-size: 12px; color: var(--t2);
+    background: var(--hover); padding: 4px 10px; border-radius: 20px;
+  }
+
+  /* Chat feed fills remaining space */
+  .chat-feed { padding: 12px 12px 0 12px; }
+  .chat-header { padding: 12px 14px; margin-bottom: 10px; }
+  .chat-header h2 { font-size: 17px; }
+
+  /* Messages */
+  .message { padding: 12px; gap: 10px; }
+  .message-avatar { width: 36px; height: 36px; }
+  .sender-name { font-size: 13px; }
+  .message-text { font-size: 13px; }
+
+  /* Input always visible at bottom */
+  .chat-input-area { margin: 10px 12px 12px 12px; padding: 12px; border-radius: var(--r2); }
+  #messageInput { padding: 12px 14px; font-size: 14px; }
+  .send-btn { padding: 12px 18px; font-size: 16px; }
+
+  /* Focus overlay shrinks for phone */
+  .focus-circle { width: 180px; height: 180px; }
+  .focus-logo-icon { font-size: 32px; }
+  .focus-logo-text { font-size: 13px; }
+  .circle-inner { inset: 14px; }
+  .users-around-circle { width: 320px; height: 320px; }
+  .focus-title { font-size: 18px; }
+  .focus-subtitle { font-size: 13px; }
+  .typing-indicators { flex-wrap: wrap; gap: 6px; }
+  .typing-indicator { padding: 5px 10px; font-size: 12px; }
+  .focus-info { margin-top: 20px; }
+
+  /* Countdown */
+  .countdown-number { font-size: 36px; }
+  .countdown-circle { width: 90px; height: 90px; }
+}
+
+@media (max-width: 480px) {
+  .chat-header h2 { font-size: 15px; }
+  .active-users-count { font-size: 11px; }
+  .message { padding: 10px; }
+  .message-avatar { width: 32px; height: 32px; }
+  .chat-input-area { margin: 8px 10px 10px 10px; padding: 10px; gap: 8px; }
+  #messageInput { padding: 10px 12px; font-size: 13px; }
+  .send-btn { padding: 10px 14px; }
+  .focus-circle { width: 150px; height: 150px; }
+  .users-around-circle { width: 270px; height: 270px; }
+}

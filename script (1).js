@@ -77,7 +77,8 @@ function renderUsers() {
 
 // ===== Render focus circle: user avatars orbit the GOATChat logo =====
 function renderCircle() {
-  const r = 180, cx = 230, cy = 230;
+  const isMobile = window.innerWidth < 900;
+  const r = isMobile ? 110 : 180, cx = isMobile ? 160 : 230, cy = isMobile ? 160 : 230;
   el.circle.innerHTML = state.users.map((u, i) => {
     const angle = (i / state.users.length) * 2 * Math.PI - Math.PI / 2;
     const x = cx + r * Math.cos(angle) - 26;
